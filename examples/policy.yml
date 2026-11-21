@@ -1,0 +1,24 @@
+# Example policy for agent-replay. Every key is optional.
+workspace: /work/app            # writes outside this folder are flagged (AR201)
+allowed_domains:                # outbound calls to other hosts are flagged (AR203)
+  - api.github.com
+  - "*.example.com"
+tools:                          # override the built-in classification
+  lookup_order: [private]
+  "crm_*": [private]
+  get_weather: []
+rules:                          # extra checks, reported as AR301
+  - id: no-refunds
+    description: The support agent must never issue refunds itself
+    tool: issue_refund
+  - id: no-mail-after-secret
+    description: No outbound email once a secret has been read
+    severity: critical
+    tool: send_email
+    after: secret
+  - id: prod-is-read-only
+    description: Never run commands against production
+    capability: exec
+    args_match: "(?i)--context[= ]prod|prod-cluster"
+ignore: []                      # rule IDs to skip, for example [AR104]
+max_repeats: 5                  # identical calls before AR401

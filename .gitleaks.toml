@@ -1,0 +1,11 @@
+# Extends the default rules. The only exceptions are the made-up credentials that the example traces and tests use
+# to show what agent-replay detects; they grant access to nothing.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Made-up credentials in example traces and tests"
+regexes = [
+  '''whsec_7f3K9xQ2mL5vN8bR1tY4''',
+  '''b3BlbnNzaC1rZXktdjEAAAAA''',
+]

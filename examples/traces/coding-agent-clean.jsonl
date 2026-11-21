@@ -1,0 +1,12 @@
+{"format": "agent-replay", "version": 1, "meta": {"agent": "coding-agent", "description": "A normal bug fix inside the workspace"}}
+{"type":"user","content":"The test for add() fails. Please fix it."}
+{"type":"tool_call","tool":"read_file","args":{"path":"src/calc.py"},"call_id":"c1"}
+{"type":"tool_result","content":"def add(a, b):\n    return a - b\n","tool":"read_file","call_id":"c1"}
+{"type":"tool_call","tool":"run_command","args":{"command":"pytest -q tests/test_calc.py"},"call_id":"c2"}
+{"type":"tool_result","content":"F\nassert add(2, 3) == 5\n1 failed","tool":"run_command","call_id":"c2"}
+{"type":"model","content":"add() subtracts instead of adding. Fixing it."}
+{"type":"tool_call","tool":"write_file","args":{"path":"src/calc.py","content":"def add(a, b):\n    return a + b\n"},"call_id":"c3"}
+{"type":"tool_result","content":"written","tool":"write_file","call_id":"c3"}
+{"type":"tool_call","tool":"run_command","args":{"command":"pytest -q"},"call_id":"c4"}
+{"type":"tool_result","content":"3 passed","tool":"run_command","call_id":"c4"}
+{"type":"model","content":"Fixed: add() now returns a + b and all tests pass."}
