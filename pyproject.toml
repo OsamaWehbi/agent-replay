@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-replay"
+version = "0.1.0"
+description = "Flight recorder and security checker for AI agents: record tool calls, find injected instructions and data exfiltration in traces, and replay runs with an injected tool result."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Osama Wehbi" }]
+keywords = ["ai-agents", "agent-security", "llm-security", "prompt-injection", "mcp", "data-exfiltration", "tracing", "red-team"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+]
+dependencies = [
+    "pydantic>=2.12,<3",
+    "pyyaml>=6.0.2",
+    "rich>=13.7",
+    "typer>=0.29.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.5",
+    "bandit>=1.9.4",
+    "pip-audit>=2.9",
+    "pre-commit>=4.7.0",
+]
+
+[project.scripts]
+agent-replay = "agent_replay.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/OsamaWehbi/agent-replay"
+Issues = "https://github.com/OsamaWehbi/agent-replay/issues"
+Changelog = "https://github.com/OsamaWehbi/agent-replay/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_replay"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "BLE", "UP", "S", "SIM", "RUF"]
+ignore = ["E501", "S101", "RUF001", "RUF002", "RUF003", "RUF012", "SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S105", "S106", "S108", "S310", "S311", "S603"]
+"examples/*" = ["S310"]
+"scripts/*" = ["S105"]
+"src/agent_replay/proxy.py" = ["S603"]
+"src/agent_replay/cli.py" = ["B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
