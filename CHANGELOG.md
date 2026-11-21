@@ -5,6 +5,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-21
+
 ### Added
 
 - Trace format (JSONL, one event per step) with importers for OpenAI-compatible chat transcripts and request logs and
@@ -21,3 +23,6 @@ All notable changes to this project are documented here. The format follows
   `canary` or your own) against any OpenAI-compatible endpoint, with recorded or stubbed tool results, and reports
   whether the agent was compromised.
 - Example traces, an example policy and a replay demo with scripted fake models.
+
+[Unreleased]: https://github.com/OsamaWehbi/agent-replay/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/OsamaWehbi/agent-replay/releases/tag/v0.1.0
