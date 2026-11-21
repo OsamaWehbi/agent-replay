@@ -1,0 +1,33 @@
+[
+  {
+    "role": "system",
+    "content": "You are the support assistant for an online shop."
+  },
+  {
+    "role": "user",
+    "content": "Where is my order 88231?"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_1",
+        "type": "function",
+        "function": {
+          "name": "lookup_order",
+          "arguments": "{\"order_id\": \"88231\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "call_1",
+    "content": "{\"status\": \"shipped\", \"carrier\": \"PostNL\"}"
+  },
+  {
+    "role": "assistant",
+    "content": "Order 88231 has shipped with PostNL."
+  }
+]
